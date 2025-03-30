@@ -171,7 +171,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDetailResponse> getCarsByDealer(Integer id) {
         try {
-            List<Car> cars = carRepository.findByUserId(id);
+            List<Car> cars = carRepository.findByDealerId(id);
             return cars.stream()
                     .map(carConverter::carToCarDetailResponse)
                     .collect(Collectors.toList());

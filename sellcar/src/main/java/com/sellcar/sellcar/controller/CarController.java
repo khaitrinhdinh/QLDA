@@ -70,12 +70,11 @@ public class CarController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/sellcar/{id}")
-    public ResponseEntity<CarDetailResponse> getCarById(@PathVariable Integer id) {
-        CarDetailResponse car = carService.getCarById(id);
+    public ResponseEntity<List<CarDetailResponse>> getCarsByDealer(@PathVariable Integer id) {
+        List<CarDetailResponse> car = carService.getCarsByDealer(id);
         if (car == null) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(car);
     }
-
 }

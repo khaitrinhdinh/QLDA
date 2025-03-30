@@ -52,5 +52,10 @@ public class User {
     
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
+   
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SellCar> sellCarsAsBuyer = new HashSet<>();
 
+    @OneToMany(mappedBy = "dealer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SellCar> sellCarsAsDealer = new HashSet<>();
 }

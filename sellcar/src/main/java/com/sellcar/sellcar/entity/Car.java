@@ -80,8 +80,7 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cart> carts = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User dealer;
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SellCar> sellCars = new HashSet<>();
 
 }
