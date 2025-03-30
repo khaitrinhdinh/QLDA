@@ -75,4 +75,13 @@ public class Car {
     @Builder.Default
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Evaluate> evaluates = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Cart> carts = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private User dealer;
+
 }

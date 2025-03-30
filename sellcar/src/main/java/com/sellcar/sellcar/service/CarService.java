@@ -18,4 +18,7 @@ public interface CarService {
 
     public List<TrainingResponse> getTrainingData();
 
+    public List<CarDetailResponse> getCartByUserId(Integer userId);
+
+    public List<CarDetailResponse> getCarsByDealer(Integer id);
 }

@@ -6,46 +6,52 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutAction } from '../../redux/action';
 
 const Header = () => {
-
     const userData = useSelector(state => state.accountReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const tabList = [
-        {
-            path: "/new-cars",
-            name: "Xe Mới"
-        },
-        {
-            path: "/used-cars",
-            name: "Xe Đã Sử Dụng"
-        },
-        {
-            path: "/sell",
-            name: "Bán Xe"
-        },
-    ]
+
+    // Danh sách tab mặc định
+    let tabList = [
+        { path: "/my-cart", name: "Giỏ hàng của tôi" },
+        { path: "/used-cars", name: "Quản lý xe" },
+    ];
+
+    if (userData?.role === "Dealer") {
+        tabList.push({ path: "/sell", name: "Bán Xe" });
+    }
 
     return (
-        <>
-            <div className="container--header">
-                    <img src={Logo} alt={Logo} onClick={() => navigate("/home")}/>
-                    <div className='tab-list'>
-                        {tabList.map(it => 
-                            <div className='tab' onClick={() => navigate(it.path)}>
-                                {it.name}
-                            </div>
-                        )}
+        <div className="container--header">
+            <img src={Logo} alt="Logo" onClick={() => navigate("/home")} />
+
+            <div className='tab-list'>
+                {tabList.map(it => 
+                    <div key={it.path} className='tab' onClick={() => navigate(it.path)}>
+                        {it.name}
                     </div>
-                    <div className='btn-sign-in' onClick={() => navigate(userData? "#" : "/login")}>
-                    {userData? "" :<img src={User} alt={User}/>}
-                        <p>{userData? ("Chào " + userData.fullName) : "Đăng Nhập"}</p>
-                    </div>
-                    {userData? <div className='btn-sign-in' onClick={() => dispatch(logoutAction())}>
-                        <p>Đăng xuất</p>
-                    </div> : <></>}
+                )}
             </div>
-        </>
+
+            <div className='user-section'>
+                {userData ? (
+                    <>
+                        <div className='btn-sign-in' onClick={() => navigate("#")}>
+                            <img src={User} alt="User" />
+                            <p>Chào {userData.fullName}</p>
+                        </div>
+                        <div className='btn-sign-in' onClick={() => dispatch(logoutAction())}>
+                            <p>Đăng xuất</p>
+                        </div>
+                    </>
+                ) : (
+                    <div className='btn-sign-in' onClick={() => navigate("/login")}>
+                        <img src={User} alt="User" />
+                        <p>Đăng Nhập</p>
+                    </div>
+                )}
+            </div>
+        </div>
     );
-}
+};
 
 export default Header;

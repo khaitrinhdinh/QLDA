@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sellcar.sellcar.entity.Car;
 import com.sellcar.sellcar.request.SearchCarRequest;
 import com.sellcar.sellcar.request.SellCarRequest;
 import com.sellcar.sellcar.response.CarDetailResponse;
@@ -60,4 +61,21 @@ public class CarController {
         }
         return ResponseEntity.internalServerError().build();
     }
+    @GetMapping("/cart/{id}")
+    public ResponseEntity<List<CarDetailResponse>> getCartByUserId(@PathVariable(value = "id") Integer userId) {
+        List<CarDetailResponse> cartItems = carService.getCartByUserId(userId);
+        if (cartItems != null && !cartItems.isEmpty()) {
+            return ResponseEntity.ok(cartItems);
+        }
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/sellcar/{id}")
+    public ResponseEntity<CarDetailResponse> getCarById(@PathVariable Integer id) {
+        CarDetailResponse car = carService.getCarById(id);
+        if (car == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(car);
+    }
+
 }

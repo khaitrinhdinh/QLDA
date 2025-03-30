@@ -156,5 +156,28 @@ public class CarServiceImpl implements CarService {
         }
         return null;
     }
-
+    @Override
+    public List<CarDetailResponse> getCartByUserId(Integer userId) {
+        try {
+            List<Car> cars = carRepository.findByUserId(userId);
+            return cars.stream()
+                    .map(carConverter::carToCarDetailResponse)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+    @Override
+    public List<CarDetailResponse> getCarsByDealer(Integer id) {
+        try {
+            List<Car> cars = carRepository.findByUserId(id);
+            return cars.stream()
+                    .map(carConverter::carToCarDetailResponse)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 }

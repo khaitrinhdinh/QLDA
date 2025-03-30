@@ -7,6 +7,8 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import DetailCar from "../pages/DetailCar";
 import ChatCar from "../components/ChatCar";
+import CartPage from "../pages/Cart"; 
+import SellCar from "../pages/Sell";
 
 const Routers = () => {
     const userData = useSelector(state => state.accountReducer);
@@ -39,6 +41,14 @@ const Routers = () => {
                 {
                     path: '/register',
                     element: <Register/>
+                },
+                {
+                    path: '/my-cart',
+                    element: <CartPage/>
+                },
+                {
+                    path: '/sell',
+                    element: <SellCar/>
                 },
                 {
                     path: '*',
